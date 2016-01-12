@@ -1,17 +1,22 @@
 function [J, theta, Jx, Jy]=findDerivatives(I, Gx, Gy)
+% Input: Image, 
+% Output: Gradient direction, magnitude, 
 
-%declaring variables
+% Declaring variables
 delx=[1 -1];
 dely=transpose(delx);
 
-%smoothing image
+% Smoothing image
 G=conv2(Gx,Gy,'full');
 Gdx=conv2(G,delx,'same');
 Gdy=conv2(G,dely,'same');
 
-%finding gradient direction and magnitude
+% Finding gradient direction and magnitude
 Jx=conv2(I,Gdx,'valid');
 Jy=conv2(I,Gdy,'valid');
-J=sqrt(Jx.*Jx+Jy.*Jy); %magnitude of J
-theta=atand(Jy./Jx); %direction
+
+% Magnitude
+J=sqrt(Jx.*Jx+Jy.*Jy); 
+% Direction
+theta=atand(Jy./Jx); 
 
